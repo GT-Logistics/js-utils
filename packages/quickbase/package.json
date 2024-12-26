@@ -1,0 +1,30 @@
+{
+  "name": "@gtlogistics/quickbase-client",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "",
+  "keywords": [],
+  "author": "Brandon Antonio Lorenzo <bantonio@gtglobal.com>",
+  "license": "proprietary",
+  "scripts": {
+    "build": "unbuild --minify",
+    "prepack": "unbuild --minify",
+    "test": "mocha"
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "default": "./dist/index.mjs",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "ky": "^1.7.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "unbuild": "^3.0.1"
+  }
+}
