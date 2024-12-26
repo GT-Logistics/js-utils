@@ -29,9 +29,9 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies 👨🏻‍💻
-        run: pnpm install
+        run: pnpm install -r
 
       - name: Publish to NPM ✅
-        run: pnpm publish --provenance --access public
+        run: pnpm publish -r --no-git-checks --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

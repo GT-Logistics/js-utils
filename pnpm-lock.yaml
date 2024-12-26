@@ -28,8 +28,6 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0(mocha@10.8.2)
 
-  packages/bootstrap: {}
-
   packages/quickbase:
     dependencies:
       ky:
