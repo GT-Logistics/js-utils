@@ -6,16 +6,16 @@ export default function (appToken: string): BeforeRequestHook {
         const clonedRequest = request.clone(); // We can't touch the original body of the request
         const url = new URL(clonedRequest.url);
         const payload = await clonedRequest.json();
-        const table = payload.from || payload.to || url.searchParams.get('tableId') || url.searchParams.get('appId');
+        const table = payload?.from || payload?.to || url.searchParams.get('tableId') || url.searchParams.get('appId');
 
-        const headers = new Headers(options.headers);
-        headers.set('QB-App-Token', appToken);
-
-        const token = await ky.post(`auth/temporary/${table}`, {
-            ...options,
-            headers,
+        const token = await ky.get(`auth/temporary/${table}`, {
+            fetch: (options as any).fetch,
+            prefixUrl: options.prefixUrl,
+            headers: {
+                'QB-Realm-Hostname': clonedRequest.headers.get('QB-Realm-Hostname'),
+                'QB-App-Token': appToken,
+            },
             credentials: 'include',
-            hooks: {}, // Disable hooks to obtain an untainted request
         }).json<TempToken>();
         const authorization = token.temporaryAuthorization;
 
