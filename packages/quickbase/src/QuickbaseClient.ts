@@ -4,10 +4,10 @@ import TempTokenAuthenticator from "./TempTokenAuthenticator.js";
 import {Config} from "./interfaces.js";
 
 export default function (realm: string, configs: Config = {}): KyInstance {
-    return factory(globalThis.fetch, realm, configs);
+    return factory(fetch, realm, configs);
 }
 
-export function factory(fetch: typeof globalThis.fetch, realm: string, configs: Config = {}): KyInstance {
+export function factory(client: typeof fetch, realm: string, configs: Config = {}): KyInstance {
     const {token, appToken} = configs;
 
     if (!token && !appToken) {
@@ -23,7 +23,7 @@ export function factory(fetch: typeof globalThis.fetch, realm: string, configs: 
     }
 
     return ky.create({
-        fetch,
+        fetch: client,
         prefixUrl: 'https://api.quickbase.com/v1/',
         headers: {
             'QB-Realm-Hostname': realm,
